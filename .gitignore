@@ -31,4 +31,10 @@ node_modules
 # IDE
 .idea/
 
+# bundle
+public/bundle.js
+
+# Apple
+.DS_Store
+
 # Created by .ignore support plugin (hsz.mobi)
