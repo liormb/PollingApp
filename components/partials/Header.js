@@ -9,16 +9,19 @@ const React = require('react');
 class Header extends React.Component {
 
     render() {
+        const { title } = this.props;
+
         return (
             <header>
-                <h1>{this.props.title}</h1>
+                <h1>{title}</h1>
             </header>
         );
     }
 }
 
 Header.propTypes = {
-    title: React.PropTypes.string.isRequired
+    title  : React.PropTypes.string.isRequired,
+    status : React.PropTypes.string.isRequired
 };
 
-module.exports = Header;
+export default Header;

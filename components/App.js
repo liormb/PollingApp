@@ -13,33 +13,42 @@ class App extends React.Component {
 
     constructor(props) {
         super(props);
+        this.state = {
+            status: 'disconnect',
+            title: ''
+        };
         this.connect    = this.connect.bind(this);
         this.disconnect = this.connect.bind(this);
+        this.welcome    = this.welcome.bind(this);
     }
 
     componentWillMount() {
         this.socket = io(localPath);
-        this.socket.on('connect', this.connect);
+        this.socket.on('connect',    this.connect);
         this.socket.on('disconnect', this.disconnect);
+        this.socket.on('welcome',    this.welcome);
     }
 
     connect() {
-        console.log('Connected: ' + this.socket.id);
+        this.setState({ status: 'connected' });
     }
 
     disconnect() {
-        this.setState({
-            status: 'disconnected'
-        });
+        this.setState({ status: 'disconnected' });
+    }
+
+    welcome(serverState) {
+        this.setState({ title: serverState.title });
     }
 
     render() {
+        const { title, status } = this.state;
         return (
             <div>
-                <Header title="New Header" />
+                <Header title={title} status={status} />
             </div>
         );
     }
 }
 
-module.exports = App;
+export default App;
