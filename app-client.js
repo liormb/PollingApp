@@ -4,7 +4,27 @@
 
 'use strict';
 
-const React = require('react');
-const App = require('./components/App');
+import React  from 'react';
+import Router from 'react-router';
+import { Route, IndexRoute } from 'react-router';
 
-React.render(<App />, document.getElementById('react-container'));
+// Components
+import App      from './components/App';
+import Audience from './components/Audience';
+import Speaker  from './components/Speaker';
+import Board    from './components/Board';
+
+// Variables
+const el = document.getElementById('react-container');
+
+const routes = (
+    <Router>
+        <Route path="/" component={App}>
+            <IndexRoute component={Audience} />
+            <Route path="speaker" component={Speaker} />
+            <Route path="board"   component={Board} />
+        </Route>
+    </Router>
+);
+
+React.render(routes, el);

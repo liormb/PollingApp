@@ -4,9 +4,10 @@
 
 'use strict';
 
-const React = require('react');
-const io = require('socket.io-client');
-const Header = require('./partials/Header');
+import React  from 'react';
+import io     from 'socket.io-client';
+import Header from './partials/Header';
+
 const localPath = 'http://localhost:3000';
 
 class App extends React.Component {
@@ -46,6 +47,7 @@ class App extends React.Component {
         return (
             <div>
                 <Header title={title} status={status} />
+                {this.props.children}
             </div>
         );
     }
