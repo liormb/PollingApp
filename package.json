@@ -8,6 +8,7 @@
     "babel-loader": "^5.3.2",
     "bootstrap": "^3.3.5",
     "express": "^4.13.3",
+    "history": "^1.11.1",
     "path": "^0.12.7",
     "react": "^0.13.3",
     "react-router": "^1.0.0-rc1",

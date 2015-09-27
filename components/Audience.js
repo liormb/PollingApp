@@ -9,8 +9,10 @@ const React = require('react');
 class Audience extends React.Component {
 
     render() {
+        const { title } = this.props;
+
         return (
-            <h1>Audience</h1>
+            <h1>Audience : {title}</h1>
         );
     }
 }

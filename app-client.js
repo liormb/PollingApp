@@ -13,18 +13,18 @@ import App      from './components/App';
 import Audience from './components/Audience';
 import Speaker  from './components/Speaker';
 import Board    from './components/Board';
+import View404  from './components/View404';
 
 // Variables
 const el = document.getElementById('react-container');
 
 const routes = (
-    <Router>
-        <Route path="/" component={App}>
-            <IndexRoute component={Audience} />
-            <Route path="speaker" component={Speaker} />
-            <Route path="board"   component={Board} />
-        </Route>
-    </Router>
+    <Route path="/" component={App}>
+        <IndexRoute           component={Audience} />
+        <Route path="speaker" component={Speaker}  />
+        <Route path="board"   component={Board}    />
+        <Route path="*"       component={View404}  />
+    </Route>
 );
 
-React.render(routes, el);
+React.render(<Router>{routes}</Router>, el);
