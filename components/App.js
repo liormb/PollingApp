@@ -21,6 +21,7 @@ class App extends React.Component {
         this.connect    = this.connect.bind(this);
         this.disconnect = this.connect.bind(this);
         this.welcome    = this.welcome.bind(this);
+        this.emit       = this.emit.bind(this);
     }
 
     componentWillMount() {
@@ -42,12 +43,21 @@ class App extends React.Component {
         this.setState({ title: serverState.title });
     }
 
+    // Pass down to the Join form component
+    emit(event, payload) {
+        this.socket.emit(event, payload);
+    }
+
     render() {
         const { title, status } = this.state;
+        const payload = Object.assign(this.state, {
+            emit: this.emit
+        });
+
         return (
             <div>
                 <Header title={title} status={status} />
-                {React.cloneElement(this.props.children, this.state)}
+                {React.cloneElement(this.props.children, payload)}
             </div>
         );
     }

@@ -29,6 +29,11 @@ io.sockets.on('connection', function (socket) {
         console.log('Disconnected: %s sockets remaining.', connections.length);
     });
 
+    socket.on('join', function (payload) {
+        // TODO: inform the client that new member has joined
+        console.log(payload.name);
+    });
+
     socket.emit('welcome', {
         title: title
     });
