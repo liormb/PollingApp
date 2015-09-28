@@ -4,15 +4,20 @@
 
 'use strict';
 
-const React = require('react');
+import React from 'react';
+import Display from './partials/Display';
 
 class Audience extends React.Component {
 
     render() {
-        const { title } = this.props;
-
+        const { status } = this.props;
+        const isConnected = status === 'connected';
         return (
-            <h1>Audience : {title}</h1>
+            <div>
+                <Display isConnected={isConnected}>
+                    <h1>Join the session</h1>
+                </Display>
+            </div>
         );
     }
 }

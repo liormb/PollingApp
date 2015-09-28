@@ -17,7 +17,7 @@ class View404 extends React.Component {
                 <h1>404</h1>
                 <p>We cannot find the page that you have requested.</p>
                 <ul>
-                    <li><Link to="/">Join as Audience</Link></li>
+                    <li><Link to="/">Join as audience</Link></li>
                     <li><Link to="/speaker">Start a presentation</Link></li>
                     <li><Link to="/board">View the board</Link></li>
                 </ul>
