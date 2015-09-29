@@ -16,12 +16,16 @@ class App extends React.Component {
         super(props);
         this.state = {
             status: 'disconnect',
-            title: ''
+            title: '',
+            member: {},
+            audience: []
         };
-        this.connect    = this.connect.bind(this);
-        this.disconnect = this.connect.bind(this);
-        this.welcome    = this.welcome.bind(this);
-        this.emit       = this.emit.bind(this);
+        this.connect         = this.connect.bind(this);
+        this.disconnect      = this.connect.bind(this);
+        this.welcome         = this.welcome.bind(this);
+        this.joined          = this.joined.bind(this);
+        this.updateAudience  = this.updateAudience.bind(this);
+        this.emit            = this.emit.bind(this);
     }
 
     componentWillMount() {
@@ -29,6 +33,8 @@ class App extends React.Component {
         this.socket.on('connect',    this.connect);
         this.socket.on('disconnect', this.disconnect);
         this.socket.on('welcome',    this.welcome);
+        this.socket.on('joined',     this.joined);
+        this.socket.on('audience',   this.updateAudience);
     }
 
     connect() {
@@ -43,9 +49,17 @@ class App extends React.Component {
         this.setState({ title: serverState.title });
     }
 
+    joined(member) {
+        this.setState({ member: member });
+    }
+
+    updateAudience(audience) {
+        this.setState({ audience: audience });
+    }
+
     // Pass down to the Join form component
-    emit(event, payload) {
-        this.socket.emit(event, payload);
+    emit(eventName, payload) {
+        this.socket.emit(eventName, payload);
     }
 
     render() {
