@@ -38,6 +38,10 @@ class App extends React.Component {
     }
 
     connect() {
+        const member = sessionStorage.member && JSON.parse(sessionStorage.member);
+        if (member) {
+            this.emit('join', member);
+        }
         this.setState({ status: 'connected' });
     }
 
@@ -50,6 +54,8 @@ class App extends React.Component {
     }
 
     joined(member) {
+        // Save the joined member to the browser's session
+        sessionStorage.member = JSON.stringify(member);
         this.setState({ member: member });
     }
 
