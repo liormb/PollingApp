@@ -10,6 +10,7 @@ var io = require('socket.io');
 var app = express();
 var connections = [];
 var audience = [];
+var speaker = {};
 var title = 'Untitled Presentation';
 var port = 3000;
 var server;
@@ -39,11 +40,23 @@ io.sockets.on('connection', function (socket) {
     socket.on('join', function (payload) {
         var member = {
             id: this.id,
-            name: payload.name
+            name: payload.name,
+            type: 'member'
         };
         this.emit('joined', member);
         audience.push(member);
         io.sockets.emit('audience', audience);
+    });
+
+    socket.on('start', function (payload) {
+        speaker = {
+            id: this.id,
+            name: payload.name,
+            title: payload.title,
+            type: 'speaker'
+        };
+        this.emit('joined', speaker);
+        console.log('Presentation Started: %s by %s', payload.title, speaker.name);
     });
 
     socket.emit('welcome', {

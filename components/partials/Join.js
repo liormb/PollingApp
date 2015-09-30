@@ -7,6 +7,7 @@
 'use strict';
 
 import React from 'react';
+import { Link } from 'react-router';
 
 class Join extends React.Component {
 
@@ -35,6 +36,7 @@ class Join extends React.Component {
                     required
                 />
                 <button className="btn btn-primary">Join</button>
+                <Link to="/speaker">Join as speaker</Link>
             </form>
         );
     }
