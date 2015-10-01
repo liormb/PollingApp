@@ -53,16 +53,16 @@ class Audience extends React.Component {
 }
 
 Audience.propTypes = {
-    emit: React.PropTypes.func,
-    status: React.PropTypes.string,
-    member: React.PropTypes.object,
-    audience: React.PropTypes.array
+    emit     : React.PropTypes.func,
+    status   : React.PropTypes.string,
+    member   : React.PropTypes.object,
+    audience : React.PropTypes.array
 };
 
 Audience.defaultProps = {
-    status: 'disconnect',
-    member: {},
-    audience: []
+    status   : 'disconnect',
+    member   : {},
+    audience : []
 };
 
 export default Audience;

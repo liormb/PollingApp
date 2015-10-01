@@ -32,8 +32,8 @@ Header.propTypes = {
 };
 
 Header.defaultProps = {
-    status: 'disconnected',
-    speaker: ''
+    status  : 'disconnected',
+    speaker : ''
 };
 
 export default Header;

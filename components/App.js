@@ -106,10 +106,10 @@ class App extends React.Component {
 }
 
 App.defaultProps = {
-    name: '',
-    title: '',
-    type: '',
-    status: 'disconnected'
+    name   : '',
+    title  : '',
+    type   : '',
+    status : 'disconnected'
 };
 
 export default App;

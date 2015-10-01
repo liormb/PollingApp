@@ -49,14 +49,14 @@ class Speaker extends React.Component {
 }
 
 Speaker.propTypes = {
-    emit: React.PropTypes.func,
-    status: React.PropTypes.string,
-    member: React.PropTypes.object
+    emit   : React.PropTypes.func,
+    status : React.PropTypes.string,
+    member : React.PropTypes.object
 };
 
 Speaker.defaultProps = {
-    status: 'disconnect',
-    member: {}
+    status : 'disconnect',
+    member : {}
 };
 
 export default Speaker;
