@@ -31,9 +31,18 @@ io.sockets.on('connection', function (socket) {
     // if this socket disconnect, remove it from the socket's array
     socket.once('disconnect', function () {
         var member = _.findWhere(audience, { id: this.id });
+
         if (member) {
             audience.splice(audience.indexOf(member), 1);
             io.sockets.emit('audience', audience);
+        } else if (this.id === speaker.id) {
+            console.log('%s has left. %s is over', speaker.name, title);
+            title: 'Untitled Presentation';
+            speaker = {};
+            io.sockets.emit('end', {
+                title: title,
+                speaker: ''
+            });
         }
         connections.splice(connections.indexOf(socket), 1);
         socket.disconnect();

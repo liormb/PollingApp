@@ -22,10 +22,10 @@ let history = createBrowserHistory();
 
 const routes = (
     <Route path="/" component={App}>
-        <IndexRoute            component={Audience} />
-        <Route path="/speaker" component={Speaker}  />
-        <Route path="/board"   component={Board}    />
-        <Route path="/*"       component={View404}  />
+        <IndexRoute           component={Audience} />
+        <Route path="speaker" component={Speaker}  />
+        <Route path="board"   component={Board}    />
+        <Route path="*"       component={View404}  />
     </Route>
 );
 

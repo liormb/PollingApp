@@ -27,6 +27,7 @@ class App extends React.Component {
         this.updateState     = this.updateState.bind(this);
         this.joined          = this.joined.bind(this);
         this.updateAudience  = this.updateAudience.bind(this);
+        this.start           = this.start.bind(this);
     }
 
     componentWillMount() {
@@ -36,7 +37,8 @@ class App extends React.Component {
         this.socket.on('welcome'   , this.updateState);
         this.socket.on('joined'    , this.joined);
         this.socket.on('audience'  , this.updateAudience);
-        this.socket.on('start'     , this.updateState);
+        this.socket.on('start'     , this.start);
+        this.socket.on('end'       , this.updateState);
     }
 
     // Pass down to the Join form component
@@ -60,7 +62,7 @@ class App extends React.Component {
                     break;
                 case 'speaker':
                     this.emit('start', {
-                        name : member.name,
+                        name: member.name,
                         title: sessionStorage.title
                     });
                     break;
@@ -91,6 +93,14 @@ class App extends React.Component {
         this.setState({ audience: newAudience });
     }
 
+    start(presentation) {
+        const { member } = this.state;
+        if (member.type === 'speaker') {
+            sessionStorage.title = presentation.title;
+        }
+        this.setState(presentation);
+    }
+
     render() {
         const payload = Object.assign(this.state, {
             emit: this.emit
@@ -109,7 +119,8 @@ App.defaultProps = {
     name   : '',
     title  : '',
     type   : '',
-    status : 'disconnected'
+    status : 'disconnected',
+    member : {}
 };
 
 export default App;
