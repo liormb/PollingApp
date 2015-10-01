@@ -16,9 +16,10 @@ class JoinSpeaker extends React.Component {
     }
 
     start() {
-        const name  = React.findDOMNode(this.refs.name).value;
-        const title = React.findDOMNode(this.refs.title).value;
-        this.props.emit('start', { name, title });
+        this.props.emit('start', {
+            name  : React.findDOMNode(this.refs.name).value,
+            title : React.findDOMNode(this.refs.title).value
+        });
     }
 
     render () {

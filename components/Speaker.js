@@ -42,7 +42,7 @@ class Speaker extends React.Component {
 
         return isConnected && (
             <Display>
-                {name && type === 'member' ? this.renderSpeaker() : this.renderJoinSpeaker() }
+                {name && type === 'speaker' ? this.renderSpeaker() : this.renderJoinSpeaker() }
             </Display>
         );
     }

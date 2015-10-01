@@ -17,51 +17,26 @@ class App extends React.Component {
         this.state = {
             status: 'disconnect',
             title: '',
-            member: {},
-            speaker: {},
-            audience: []
+            speaker: '',
+            audience: [],
+            member: {}
         };
+        this.emit            = this.emit.bind(this);
         this.connect         = this.connect.bind(this);
         this.disconnect      = this.connect.bind(this);
-        this.welcome         = this.welcome.bind(this);
+        this.updateState     = this.updateState.bind(this);
         this.joined          = this.joined.bind(this);
         this.updateAudience  = this.updateAudience.bind(this);
-        this.emit            = this.emit.bind(this);
     }
 
     componentWillMount() {
         this.socket = io(localPath);
-        this.socket.on('connect',    this.connect);
+        this.socket.on('connect'   , this.connect);
         this.socket.on('disconnect', this.disconnect);
-        this.socket.on('welcome',    this.welcome);
-        this.socket.on('joined',     this.joined);
-        this.socket.on('audience',   this.updateAudience);
-    }
-
-    connect() {
-        const member = sessionStorage.member && JSON.parse(sessionStorage.member);
-        if (member) {
-        //    this.emit('join', member);
-        }
-        this.setState({ status: 'connected' });
-    }
-
-    disconnect() {
-        this.setState({ status: 'disconnected' });
-    }
-
-    welcome(serverState) {
-        this.setState({ title: serverState.title });
-    }
-
-    joined(member) {
-        // Save the joined member to the browser's session
-        //sessionStorage.member = JSON.stringify(member);
-        this.setState({ member: member });
-    }
-
-    updateAudience(audience) {
-        this.setState({ audience: audience });
+        this.socket.on('welcome'   , this.updateState);
+        this.socket.on('joined'    , this.joined);
+        this.socket.on('audience'  , this.updateAudience);
+        this.socket.on('start'     , this.updateState);
     }
 
     // Pass down to the Join form component
@@ -69,19 +44,72 @@ class App extends React.Component {
         this.socket.emit(eventName, payload);
     }
 
+    connect() {
+        let member;
+        let memberType;
+
+        if (this.props.status !== 'connected') {
+            sessionStorage.clear();
+        } else {
+            member = sessionStorage.member && JSON.parse(sessionStorage.member);
+            memberType = member && member.type;
+
+            switch (memberType) {
+                case 'audience':
+                    this.emit('join', member);
+                    break;
+                case 'speaker':
+                    this.emit('start', {
+                        name : member.name,
+                        title: sessionStorage.title
+                    });
+                    break;
+            }
+        }
+        this.setState({ status: 'connected' });
+    }
+
+    disconnect() {
+        this.setState({
+            title: 'disconnected',
+            status: 'disconnected',
+            speaker: ''
+        });
+    }
+
+    updateState(serverState) {
+        this.setState(serverState);
+    }
+
+    joined(member) {
+        // Save the joined member to the browser's session
+        sessionStorage.member = JSON.stringify(member);
+        this.setState({ member: member });
+    }
+
+    updateAudience(newAudience) {
+        this.setState({ audience: newAudience });
+    }
+
     render() {
-        const { title, status } = this.state;
         const payload = Object.assign(this.state, {
             emit: this.emit
         });
 
         return (
             <div>
-                <Header title={title} status={status} />
+                <Header {...this.state} />
                 {React.cloneElement(this.props.children, payload)}
             </div>
         );
     }
 }
+
+App.defaultProps = {
+    name: '',
+    title: '',
+    type: '',
+    status: 'disconnected'
+};
 
 export default App;
