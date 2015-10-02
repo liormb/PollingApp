@@ -1,5 +1,7 @@
 /**
- * Created by liormb on 9/25/15.
+ * Name: Lior Elrom
+ * Date: 9/27/15
+ * Time: 9:57 PM
  */
 
 'use strict';
@@ -35,14 +37,16 @@ io.sockets.on('connection', function (socket) {
         if (member) {
             audience.splice(audience.indexOf(member), 1);
             io.sockets.emit('audience', audience);
+            console.log('Lunch Event: disconnected | audience');
         } else if (this.id === speaker.id) {
             console.log('%s has left. %s is over', speaker.name, title);
-            title: 'Untitled Presentation';
+            title = 'Untitled Presentation';
             speaker = {};
             io.sockets.emit('end', {
                 title: title,
                 speaker: ''
             });
+            console.log('Lunch Event: disconnected | end');
         }
         connections.splice(connections.indexOf(socket), 1);
         socket.disconnect();
@@ -56,8 +60,10 @@ io.sockets.on('connection', function (socket) {
             type: 'audience'
         };
         this.emit('joined', newMember);
+        console.log('Lunch Event: joined');
         audience.push(newMember);
         io.sockets.emit('audience', audience);
+        console.log('Lunch Event: audience');
     });
 
     socket.on('start', function (payload) {
@@ -69,11 +75,12 @@ io.sockets.on('connection', function (socket) {
             type: 'speaker'
         };
         this.emit('joined', speaker);
+        console.log('Lunch Event: joined');
         io.sockets.emit('start', {
             title: title,
             speaker: speaker.name
         });
-        console.log('Presentation Started: %s by %s', payload.title, speaker.name);
+        console.log('Lunch Event: start');
     });
 
     socket.emit('welcome', {
@@ -81,6 +88,7 @@ io.sockets.on('connection', function (socket) {
         audience: audience,
         speaker: speaker.name
     });
+    console.log('Lunch Event: welcome');
 
     connections.push(socket);
     console.log('Connected: %s sockets connected.', connections.length);

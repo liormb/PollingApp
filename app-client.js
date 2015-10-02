@@ -1,12 +1,13 @@
 /**
- * Created by liormb on 9/26/15.
+ * Name: Lior Elrom
+ * Date: 9/27/15
+ * Time: 9:57 PM
  */
 
 'use strict';
 
 import React  from 'react';
-import Router from 'react-router';
-import { Route, IndexRoute } from 'react-router';
+import { Router, Route, IndexRoute } from 'react-router';
 import createBrowserHistory  from 'history/lib/createBrowserHistory';
 
 // Components
@@ -17,9 +18,6 @@ import Board    from './components/Board';
 import View404  from './components/View404';
 
 // Variables
-const el = document.getElementById('react-container');
-let history = createBrowserHistory();
-
 const routes = (
     <Route path="/" component={App}>
         <IndexRoute           component={Audience} />
@@ -29,4 +27,7 @@ const routes = (
     </Route>
 );
 
-React.render(<Router history={history}>{routes}</Router>, el);
+React.render(
+    <Router history={createBrowserHistory()}>{routes}</Router>,
+    document.getElementById('react-container')
+);
