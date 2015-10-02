@@ -117,12 +117,22 @@ class App extends React.Component {
     }
 }
 
+App.propTypes = {
+    name     : React.PropTypes.string,
+    title    : React.PropTypes.string,
+    type     : React.PropTypes.string,
+    status   : React.PropTypes.string,
+    member   : React.PropTypes.object,
+    audience : React.PropTypes.array
+};
+
 App.defaultProps = {
-    name   : '',
-    title  : '',
-    type   : '',
-    status : 'disconnected',
-    member : {}
+    name     : '',
+    title    : '',
+    type     : '',
+    status   : 'disconnected',
+    member   : {},
+    audience : []
 };
 
 export default App;
