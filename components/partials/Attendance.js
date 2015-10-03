@@ -32,7 +32,7 @@ class Attendance extends React.Component {
         return (
             <div>
                 <h2>Attendance - {audience.length} members</h2>
-                <table className="table table-stiped">
+                <table className="table table-striped">
                     <thead>
                         <tr>
                             <th>Socket ID</th>

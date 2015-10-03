@@ -7,6 +7,7 @@
 'use strict';
 
 var _ = require('underscore');
+var questions = require('./app-questions');
 var express = require('express');
 var io = require('socket.io');
 var app = express();
@@ -15,6 +16,7 @@ var server;
 
 // application state
 var title = 'Untitled Presentation';
+var currentQuestion = false;
 var connections = [];
 var audience = [];
 var speaker = {};
@@ -83,10 +85,18 @@ io.sockets.on('connection', function (socket) {
         console.log('Lunch Event: start');
     });
 
+    socket.on('ask', function (question) {
+        currentQuestion = question;
+        io.sockets.emit('ask', currentQuestion);
+        console.log('Lunch Event: ask');
+    });
+
     socket.emit('welcome', {
         title: title,
         audience: audience,
-        speaker: speaker.name
+        speaker: speaker.name,
+        questions: questions,
+        currentQuestion: currentQuestion
     });
     console.log('Lunch Event: welcome');
 

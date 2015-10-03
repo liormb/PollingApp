@@ -18,12 +18,20 @@ class Audience extends React.Component {
     }
 
     renderWelcome() {
-        const { audience, member } = this.props;
+        const { audience, member, currentQuestion } = this.props;
         return (
             <Display>
-                <h1>Welcome {member.name}</h1>
-                <p>{audience.length} audience members connected</p>
-                <p>Questions will appear here.</p>
+                {currentQuestion ?
+                    (<Display>
+                        <h2>{currentQuestion.q}</h2>
+                    </Display>)
+                    :
+                    (<Display>
+                        <h2>Welcome {member.name}</h2>
+                        <p>{audience.length} audience members connected</p>
+                        <p>Questions will appear here.</p>
+                    </Display>)
+                }
             </Display>
         );
     }
@@ -53,6 +61,7 @@ class Audience extends React.Component {
 }
 
 Audience.propTypes = {
+    currentQuestion: React.PropTypes.any.isRequired,
     emit     : React.PropTypes.func,
     status   : React.PropTypes.string,
     member   : React.PropTypes.object,

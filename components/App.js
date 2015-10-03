@@ -18,9 +18,11 @@ class App extends React.Component {
         super(props);
         this.state = {
             status: 'disconnect',
+            currentQuestion: false,
             title: '',
             speaker: '',
             audience: [],
+            questions: [],
             member: {}
         };
         this.emit            = this.emit.bind(this);
@@ -30,6 +32,7 @@ class App extends React.Component {
         this.joined          = this.joined.bind(this);
         this.updateAudience  = this.updateAudience.bind(this);
         this.start           = this.start.bind(this);
+        this.ask             = this.ask.bind(this);
     }
 
     componentWillMount() {
@@ -41,6 +44,7 @@ class App extends React.Component {
         this.socket.on('audience'  , this.updateAudience);
         this.socket.on('start'     , this.start);
         this.socket.on('end'       , this.updateState);
+        this.socket.on('ask'       , this.ask);
     }
 
     // Pass down to the Join form component
@@ -103,6 +107,10 @@ class App extends React.Component {
         this.setState(presentation);
     }
 
+    ask(question) {
+        this.setState({ currentQuestion: question });
+    }
+
     render() {
         const payload = Object.assign(this.state, {
             emit: this.emit
@@ -116,23 +124,5 @@ class App extends React.Component {
         );
     }
 }
-
-App.propTypes = {
-    name     : React.PropTypes.string,
-    title    : React.PropTypes.string,
-    type     : React.PropTypes.string,
-    status   : React.PropTypes.string,
-    member   : React.PropTypes.object,
-    audience : React.PropTypes.array
-};
-
-App.defaultProps = {
-    name     : '',
-    title    : '',
-    type     : '',
-    status   : 'disconnected',
-    member   : {},
-    audience : []
-};
 
 export default App;

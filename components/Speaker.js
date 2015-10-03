@@ -8,6 +8,7 @@ import React       from 'react';
 import Display     from './partials/Display';
 import JoinSpeaker from './partials/JoinSpeaker';
 import Attendance  from './partials/Attendance';
+import Questions   from './partials/Questions';
 
 class Speaker extends React.Component {
 
@@ -18,10 +19,10 @@ class Speaker extends React.Component {
     }
 
     renderSpeaker() {
-        const { audience } = this.props;
+        const { emit, audience, questions } = this.props;
         return (
             <Display>
-                <p>Questions</p>
+                <Questions questions={questions} emit={emit}></Questions>
                 <Attendance audience={audience}></Attendance>
             </Display>
         );
@@ -51,16 +52,18 @@ class Speaker extends React.Component {
 }
 
 Speaker.propTypes = {
-    emit     : React.PropTypes.func,
-    status   : React.PropTypes.string,
-    member   : React.PropTypes.object,
-    audience : React.PropTypes.array
+    emit      : React.PropTypes.func,
+    status    : React.PropTypes.string,
+    member    : React.PropTypes.object,
+    audience  : React.PropTypes.array,
+    questions : React.PropTypes.array
 };
 
 Speaker.defaultProps = {
-    status   : 'disconnect',
-    member   : {},
-    audience : []
+    status    : 'disconnect',
+    member    : {},
+    audience  : [],
+    questions : []
 };
 
 export default Speaker;
