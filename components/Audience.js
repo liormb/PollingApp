@@ -61,7 +61,7 @@ class Audience extends React.Component {
 }
 
 Audience.propTypes = {
-    currentQuestion: React.PropTypes.any.isRequired,
+    currentQuestion: React.PropTypes.any,
     emit     : React.PropTypes.func,
     status   : React.PropTypes.string,
     member   : React.PropTypes.object,
@@ -69,6 +69,7 @@ Audience.propTypes = {
 };
 
 Audience.defaultProps = {
+    currentQuestion: false,
     status   : 'disconnect',
     member   : {},
     audience : []

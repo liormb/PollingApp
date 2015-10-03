@@ -24,8 +24,10 @@ class Questions extends React.Component {
         const { questions } = this.props;
         return questions.map((question, index) => {
             return (
-                <div className="col-xs-12 col-sm-6 col-md-3" key={index}>
-                    <span onClick={this.ask(question)}>{question.q}</span>
+                <div className="col-xs-12 col-sm-6 col-md-3"
+                     key={index}
+                     onClick={this.ask.bind(this, question)}>
+                    <span>{question.q}</span>
                 </div>
             );
         });
